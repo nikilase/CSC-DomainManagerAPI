@@ -27,8 +27,8 @@ def get_domain_data(domain_name):
     response = requests.get(url, headers=HEADERS)
     if response.status_code == 200:
         domain_info = response.json()
-        print(f"Domain data for {domain_name}:")
-        print(domain_info)
+        print(f"Domain data for {domain_name}:\n"
+              f"{domain_info}\n")
     else:
         print(f"Error fetching domain data for {domain_name}. Status code: {response.status_code} error message:"
               f"{response.content}")
@@ -39,8 +39,8 @@ def get_zone_data(domain_name):
     response = requests.get(url, headers=HEADERS)
     if response.status_code == 200:
         domain_info = response.json()
-        print(f"Zone data for {domain_name}:")
-        print(domain_info)
+        print(f"Zone data for {domain_name}:"
+              f"{domain_info}\n")
     else:
         print(f"Error fetching domain data for {domain_name}. Status code: {response.status_code} error message:"
               f"{response.content}")
@@ -64,13 +64,16 @@ def add_zone_data(domain_name: str, record_type: str, key: str, value: str, ttl:
         ]
     }
     response = requests.post(url, headers=HEADERS, json=body)
+    print(f"Sent POST Request to: {response.request.url}\n"
+          f"Headers: {response.request.headers}\n"
+          f"Body: {response.request.body}\n")
     if response.status_code == 201:
-        domain_info = response.json()
-        print(f"Zone data for {domain_name}:")
-        print(domain_info)
+        return_message = response.json()
+        print(f"Successfully added record for {key}.{domain_name}:\n"
+              f"{return_message}\n")
     else:
-        print(f"Error adding record for {key}.{domain_name} with status code: {response.status_code} and error message:"
-              f"{response.content}")
+        print(f"Error adding record for {key}.{domain_name} with status code: {response.status_code}:\n"
+              f"{response.json}\n")
 
 
 def remove_zone_data(domain_name: str, record_type: str, key: str, value: str, ttl: int = 300, change_id: str = "",

@@ -1,4 +1,4 @@
-from api import get_domain_data, get_zone_data
+from api import get_domain_data, get_zone_data, add_zone_data
 
 if __name__ == "__main__":
     print("Welcome to the Letsencrypt DNS01 Record setter for the CSC DomainManager!")
@@ -9,3 +9,4 @@ if __name__ == "__main__":
     value = input()
     get_domain_data(domain_to_query)
     get_zone_data(domain_to_query)
+    add_zone_data(domain_to_query, "TXT", "_acme-challenge", value)
