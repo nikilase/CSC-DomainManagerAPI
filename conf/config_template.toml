@@ -1,0 +1,4 @@
+[API-CONFIG]
+api_key = ""
+api_token = ""
+api_base_url = "https://your-csc-domain-manager-api.com/api/v2"
