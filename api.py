@@ -1,17 +1,5 @@
-import tomllib
-
+from config import API_TOKEN, API_KEY, API_URL
 import requests
-
-try:
-    with open("conf/config.toml", "rb") as f:
-        config = tomllib.load(f)
-except FileNotFoundError:
-    print("No config found! Please setup your config.toml from the template!")
-    exit(1)
-
-API_KEY = config["API-CONFIG"]["api_key"]
-API_TOKEN = config["API-CONFIG"]["api_token"]
-API_URL = config["API-CONFIG"]["api_base_url"]
 
 # Set your authentication credentials (API key or bearer token)
 HEADERS = {
