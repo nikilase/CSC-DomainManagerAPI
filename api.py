@@ -34,6 +34,19 @@ def get_zone_data(domain_name):
               f"{response.content}\n")
 
 
+def get_last_zone_edit_status(domain_name):
+    url = f"{API_URL}/zones/edits?filter=zoneName%3D%3D%22{domain_name}%22&page=1&size=1"
+    response = requests.get(url, headers=HEADERS)
+    if response.status_code == 200:
+        domain_info = response.json()
+        edit_id = domain_info["zoneEdits"][0]["id"]
+        status = domain_info["zoneEdits"][0]["status"]
+        return edit_id, status
+    else:
+        print(f"Error fetching domain data for {domain_name}. Status code: {response.status_code} error message:\n"
+              f"{response.content}\n")
+
+
 def add_zone_data(domain_name: str, record_type: str, key: str, value: str, ttl: int = 300, change_id: str = "",
                   comments: str = "Created via Niklas Python API Script") -> str | None:
     url = f"{API_URL}/zones/edits"

@@ -1,4 +1,7 @@
 import tomllib
+import click
+
+config_exists = False
 
 try:
 	with open("conf/config.toml", "rb") as f:
@@ -6,10 +9,14 @@ try:
 		config_exists = True
 except FileNotFoundError:
 	print("No config found! Please setup your config.toml from the template!")
-	# ToDo: Here we could then ask if the user wants to put in the information and we write it to a config file
-	# 	Or if the user wants to supply the file themselves
-	exit(1)
+	if not click.confirm('Do you want to continue?', default=True):
+		exit(1)
 
-API_KEY = config["API-CONFIG"]["api_key"]
-API_TOKEN = config["API-CONFIG"]["api_token"]
-API_URL = config["API-CONFIG"]["api_base_url"]
+if config_exists:
+	API_KEY = config["API-CONFIG"]["api_key"]
+	API_TOKEN = config["API-CONFIG"]["api_token"]
+	API_URL = config["API-CONFIG"]["api_base_url"]
+else:
+	API_KEY = input("Enter your API Key:")
+	API_TOKEN = input("Enter your API Token:")
+	API_URL = input("Enter your API Base URL:")

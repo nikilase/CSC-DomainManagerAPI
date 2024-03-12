@@ -2,7 +2,6 @@ from time import sleep
 
 from api import get_zone_edit_status
 
-#todo: add this as a function
 if __name__ == "__main__":
 	print("Please enter your edit id:")
 	edit_id = input()
