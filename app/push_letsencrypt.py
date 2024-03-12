@@ -1,33 +1,9 @@
 from datetime import datetime, timedelta
-from time import sleep
 
 import click
 
-from api import get_domain_data, get_zone_data, add_zone_data, remove_zone_data, get_zone_edit_status, get_last_zone_edit_status
-
-
-def wait_status_ok(edit_id: str) -> bool:
-    i = 1
-    while True:
-        status = get_zone_edit_status(edit_id)
-
-        if status is None:
-            print("No Status Found!")
-            return False
-        elif status == "PROPAGATING" or status == "PROCESSING":
-            if i >= 30:
-                i = 0
-                print(".")
-            else:
-                print(".", end="")
-            i += 1
-        elif status == "COMPLETED":
-            return True
-        else:
-            print(f"GOT STATUS: {status}")
-            return False
-        sleep(1)
-
+from app.api import add_zone_data, remove_zone_data, get_last_zone_edit_status
+from app.check_status import wait_status_ok
 
 def main():
     print("Welcome to the Letsencrypt DNS01 Record setter for the CSC DomainManager!")
@@ -84,7 +60,3 @@ def main():
         print("Successfully did all changes!")
     else:
         print("Something went wrong with the purge request!")
-
-
-if __name__ == "__main__":
-    main()

@@ -1,4 +1,4 @@
-from config import API_TOKEN, API_KEY, API_URL
+from app.config import API_TOKEN, API_KEY, API_URL
 import requests
 
 # Set your authentication credentials (API key or bearer token)

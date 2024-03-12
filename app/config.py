@@ -4,7 +4,7 @@ import click
 config_exists = False
 
 try:
-	with open("conf/config.toml", "rb") as f:
+	with open("app/conf/config.toml", "rb") as f:
 		config = tomllib.load(f)
 		config_exists = True
 except FileNotFoundError:
