@@ -1,4 +1,4 @@
-name: Linters
+name: Black
 
 on:
   pull_request:
@@ -10,16 +10,11 @@ on:
     paths-ignore:
       - 'docs/**'
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
-permissions:
-  contents: read
-
 jobs:
   black:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
