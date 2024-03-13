@@ -31,4 +31,3 @@ def main():
     edit_id = input()
     if wait_status_ok(edit_id):
         print("Status Complete!")
-
