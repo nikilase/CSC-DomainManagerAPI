@@ -11,6 +11,20 @@ HEADERS = {
 }
 
 
+def get_domains():
+    url = f"{API_URL}/domains"
+    response = requests.get(url, headers=HEADERS)
+    if response.status_code == 200:
+        domain_info = response.json()
+        domains = [x["qualifiedDomainName"] for x in domain_info["domains"]]
+        print(f"Domains are:\n" f"{domains}\n")
+    else:
+        print(
+            f"Error fetching domains. Status code: {response.status_code} error message:\n"
+            f"{response.content}\n"
+        )
+
+
 def get_domain_data(domain_name):
     url = f"{API_URL}/domains/{domain_name}"
     response = requests.get(url, headers=HEADERS)
